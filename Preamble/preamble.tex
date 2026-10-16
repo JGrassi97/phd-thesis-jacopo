@@ -1,0 +1,233 @@
+% ******************************************************************************
+% ****************************** Custom Margin *********************************
+
+% Add `custommargin' to the document-class options to use this section.
+% Set the inner, outer, top and bottom margins in the geometry configuration.
+\ifsetCustomMargin
+  % \RequirePackage[
+  %   left=35mm,
+  %   right=35mm,
+  %   top=40mm,
+  %   bottom=40mm
+  % ]{geometry}
+
+  \setFancyHdr
+\fi
+
+% Add space between paragraphs.
+\setlength{\parskip}{0.5em}
+
+% Avoid excessive vertical space between paragraphs.
+\raggedbottom
+
+% To remove excess top spacing from lists:
+% \RequirePackage{enumitem}
+% \setlist[enumerate,itemize,description]{topsep=0em}
+
+
+% ******************************************************************************
+% ********************************** Fonts *************************************
+
+% Add `customfont' to the document-class options to use this section.
+\ifsetCustomFont
+
+  % Set the custom font here. Leave this section empty to use the default font.
+  % \RequirePackage{helvet}
+
+  % Example for XeLaTeX:
+  %
+  % \setmainfont[
+  %   Path           = ./libertine/opentype/,
+  %   Extension      = .otf,
+  %   UprightFont    = LinLibertine_R,
+  %   BoldFont       = LinLibertine_RZ,
+  %   ItalicFont     = LinLibertine_RI,
+  %   BoldItalicFont = LinLibertine_RZI
+  % ]{libertine}
+  %
+  % \newfontfamily\libertinesystemfont{Linux Libertine O}
+
+\fi
+
+
+% ******************************************************************************
+% **************************** Custom Packages *********************************
+
+\RequirePackage{lineno}
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{longtable}
+\RequirePackage{siunitx}
+\RequirePackage{epigraph}
+\RequirePackage{etoolbox}
+
+% Algorithms and pseudocode.
+% \RequirePackage{algpseudocode}
+
+% Other optional packages.
+% \RequirePackage{rotating}
+% \RequirePackage{wrapfig}
+% \RequirePackage{multicol}
+
+
+% ******************************************************************************
+% ******************** Captions and Hyperreferencing ***************************
+
+% Load caption and subcaption only once.
+\RequirePackage[
+  font=small,
+  labelsep=space,
+  tableposition=top
+]{caption}
+\RequirePackage{subcaption}
+
+\newcommand{\mapmodel}[2]{%
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{\detokenize{#1}}
+    \caption{#2}
+  \end{subfigure}%
+}
+
+\renewcommand{\figurename}{Fig.}
+
+
+% ******************************************************************************
+% ******************************* Line Spacing *********************************
+
+% Choose the desired line spacing.
+% \doublespacing
+% \onehalfspacing
+% \singlespacing
+
+
+% ******************************************************************************
+% ************************ Formatting and Footnotes ****************************
+
+% Avoid unattractive page breaks around short paragraphs.
+% \clubpenalty=500
+% \widowpenalty=500
+
+% \RequirePackage[perpage]{footmisc}
+
+% Use a smaller font for footnotes.
+\makeatletter
+\patchcmd{\@footnotetext}
+  {\footnotesize}
+  {\scriptsize}
+  {}
+  {}
+\makeatother
+
+
+% ******************************************************************************
+% ************************ Bibliography and References *************************
+
+% Do not load natbib separately. The option natbib=true enables commands such
+% as \citet, \citep, \citeauthor and \citeyear.
+\ifuseCustomBib
+
+  \RequirePackage[
+    backend=biber,
+    style=authoryear,
+    citestyle=authoryear,
+    sorting=nyt,
+    natbib=true,
+    giveninits=true,
+    uniquename=init,
+    maxcitenames=2,
+    maxbibnames=99
+  ]{biblatex}
+
+  % Force the parenthetical format (Author, year).
+  \DeclareDelimFormat{nameyeardelim}{\addcomma\space}
+
+  % Multiple .bib files, combined into one bibliography.
+  \addbibresource{References/references_chapter_1.bib}
+  \addbibresource{References/references_chapter_2.bib}
+  \addbibresource{References/references_chapter_3.bib}
+  \addbibresource{References/references_chapter_4.bib}
+  \addbibresource{References/references_chapter_5.bib}
+  \addbibresource{References/references_chapter_6.bib}
+
+\fi
+
+% Set the bibliography title for both book/report and article classes.
+\ifcsdef{bibname}{\renewcommand{\bibname}{References}}{}
+\ifcsdef{refname}{\renewcommand{\refname}{References}}{}
+
+
+% ******************************************************************************
+% ************************* User-Defined Commands *******************************
+
+% Names used for contents and lists.
+\renewcommand{\contentsname}{Contents}
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand{\listtablename}{List of Tables}
+
+
+% ******************************************************************************
+% ********************** TOC and Numbering Depth *******************************
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+
+% ******************************************************************************
+% ******************************* Nomenclature *********************************
+
+% \renewcommand{\nomname}{Symbols}
+% \printnomenclature[3em]
+
+
+% ******************************************************************************
+% ******************************** Appendix ************************************
+
+% \renewcommand{\appendixtocname}{List of appendices}
+% \renewcommand{\appendixname}{Appendix}
+
+
+% ******************************************************************************
+% ******************************* Hyperlinks ***********************************
+
+% Load hyperref near the end of the preamble.
+\RequirePackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=blue
+}
+
+% Citation examples:
+%   \parencite{key}  -> (Author, year)
+%   \textcite{key}   -> Author (year)
+% With natbib-compatible commands:
+%   \citep{key}      -> (Author, year)
+%   \citet{key}      -> Author (year)
+
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, fit, calc, backgrounds}
+
+\newtcolorbox[
+    auto counter,
+    number within=chapter
+]{climateservicebox}[2][]{%
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=teal!55!black,
+    boxrule=0.7pt,
+    arc=1.5mm,
+    left=3mm,
+    right=3mm,
+    top=3mm,
+    bottom=2mm,
+    fonttitle=\bfseries,
+    title={Box~\thetcbcounter: #2},
+    #1
+}

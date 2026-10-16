@@ -1,0 +1,171 @@
+% ******************************* PhD Thesis Template **************************
+% Please have a look at the README.md file for information on how to use
+% the template.
+
+\documentclass[
+    a4paper,
+    11pt,
+    times,
+    print,
+    index,
+    custommargin,
+    custombib
+]{Classes/PhDThesisPSnPDF}
+
+
+% ******************************************************************************
+% ****************************** Page Geometry *********************************
+
+\usepackage[
+    top=2.5cm,
+    bottom=2.2cm,
+    inner=3.2cm,
+    outer=2.5cm,
+    bindingoffset=5mm
+]{geometry}
+
+\setFancyHdr
+
+
+% ******************************************************************************
+% ******************************* Nomenclature *********************************
+
+\usepackage{nomencl}
+\makenomenclature
+
+
+% ******************************************************************************
+% ******************************** Preamble ************************************
+
+% Contains packages, bibliography configuration, user-defined commands
+% and document settings.
+\input{Preamble/preamble}
+
+
+% ******************************************************************************
+% *********************** Thesis Information and Metadata **********************
+
+\input{Thesis-info/thesis-info}
+
+
+% ******************************************************************************
+% ***************************** Abstract-Only Mode ******************************
+
+% To generate only the title page, declaration and abstract, add the
+% `abstract' option to the document class.
+
+\ifdefineAbstract
+    \pagestyle{empty}
+    \includeonly{
+        Declaration/declaration,
+        Abstract/abstract
+    }
+\fi
+
+
+% ******************************************************************************
+% ****************************** Chapter-Only Mode ******************************
+
+% To compile only a specific chapter, add the `chapter' option to the
+% document class and select the desired chapter below.
+
+\ifdefineChapter
+    \includeonly{Chapter3/chapter3}
+\fi
+
+
+% ******************************************************************************
+% ******************************* Begin Document *******************************
+
+\begin{document}
+
+
+% ******************************************************************************
+% ******************************** Front Matter *******************************
+
+\frontmatter
+
+\maketitle
+
+\include{Declaration/declaration}
+\include{Dedication/dedication}
+\include{Abstract/abstract}
+
+
+% ******************************************************************************
+% ******************************* Contents Lists *******************************
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+
+% ******************************************************************************
+% ******************************** Nomenclature *******************************
+
+\printnomenclature
+
+
+% ******************************************************************************
+% ******************************** Main Matter ********************************
+
+\mainmatter
+
+\include{Preface/preface}
+\include{Chapter1/chapter1}
+\include{Chapter2/chapter2}
+\include{Chapter3/chapter3}
+\include{Chapter4/chapter4}
+\include{Chapter5/chapter5}
+\include{Chapter6/chapter6}
+
+% ******************************************************************************
+% ******************************** Bibliography *******************************
+
+% The bibliography databases are declared in Preamble/preamble.tex with:
+%
+% \addbibresource{References/references_chapter_1.bib}
+% \addbibresource{References/references_chapter_3.bib}
+%
+% Do not use \bibliography or \bibliographystyle with biblatex.
+
+\cleardoublepage
+
+\begin{spacing}{0.9}
+
+    \printbibliography[
+        heading=bibintoc,
+        title={References}
+    ]
+
+\end{spacing}
+
+
+% ******************************************************************************
+% ******************************** Appendices *********************************
+
+\begin{appendices}
+
+    \include{Appendix1/appendix1}
+
+    % \include{Appendix2/appendix2}
+
+\end{appendices}
+
+
+% ******************************************************************************
+% *********************************** Index ************************************
+
+\printthesisindex
+
+
+% ******************************************************************************
+% ****************************** Acknowledgements ******************************
+
+\include{Acknowledgement/acknowledgement}
+
+
+% ******************************************************************************
+% ******************************** End Document *******************************
+
+\end{document}
