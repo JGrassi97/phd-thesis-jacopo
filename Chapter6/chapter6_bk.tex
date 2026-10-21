@@ -1,0 +1,45 @@
+\chapter{Discussion}
+
+Climate Services expose a central challenge in the application of AI: models are optimized across large datasets, but their outputs are used in particular places, under particular conditions, for particular purposes. The results of this dissertation show both the opportunities created by these technologies and the importance of this difference between the conditions under which performance is measured and those under which information becomes useful.
+
+\section{Average Performance and Local Reliability}
+
+High average performance can conceal systematic weaknesses in less represented conditions. This is a well-established problem in Machine Learning: \citet{sagawa_distributionally_2020} show that models with high average accuracy can perform poorly on particular groups within the same dataset. For Climate Services, the relevant groups may correspond to geographical regions, seasons, environmental conditions, or events that occupy a small fraction of the evaluation sample but are central to the application.
+
+The LLM climate-change experiment provides a clear example. GPT-5 and Mistral Small 3.1 24B reproduce approximately plausible mean warming values, but their warming fields have spatial correlations below 0.10 with ERA5. The broad climatic signal is recognizable, while its geographical expression is largely missing. The weather-model experiments reveal a different limitation: agreement in the global mean can coexist with substantial regional errors. Neither result would be adequately characterized by examining the average alone.
+
+Training objectives help explain why some properties are reproduced better than others. In deterministic weather forecasting, squared-error minimization favours increasingly smooth predictions as uncertainty grows. Probabilistic training addresses this limitation by learning distributions rather than a single optimal estimate \citep{lang_aifs-crps_2026}. This mechanism should not be conflated with the limited geographical variability of LLM warming estimates, whose causes were not isolated experimentally here. Both findings nevertheless demonstrate that local reliability cannot be inferred from aggregate performance.
+
+The practical question is therefore straightforward: can a model that performs well on average also support a highly specific local application? The answer requires evaluation at the scale and under the conditions of that application. An error that contributes little to a global benchmark may determine whether an operational threshold is exceeded. Climate Services consequently require tests that retain the distribution and context of errors, rather than treating these as secondary details.
+
+\section{Optimization and the Definition of Scientific Objectives}
+
+A second issue concerns what is being optimized. Goodhart's law provides a useful perspective: improving a measurable proxy does not necessarily improve the underlying objective it was intended to represent \citep{manheim_categorizing_2018}. The relevance to Climate Services is not that performance metrics should be abandoned, but that their relationship with the intended use must remain explicit. A lower error or a higher evaluation score is meaningful only in relation to the properties that the application requires.
+
+The seasonal framework illustrates the scientific work involved in establishing this relationship. We translated the concept of a meteorological season into a combination of variables, preprocessing choices, and classification procedures. The algorithm then identified patterns within that formulation. Its scientific value depended on whether those patterns represented recognizable seasonal conditions, not simply on whether they formed internally consistent clusters.
+
+This distinction also governs interpretation. A longer monsoon season, as identified by the framework, means greater persistence of the multivariate conditions associated with that class. It does not automatically imply larger rainfall totals, greater water availability, or improved agricultural conditions. These are additional questions requiring additional evidence. The algorithm makes a particular scientific definition operational; it does not determine every implication of the resulting indicator.
+
+Human expertise is therefore part of the method, rather than an external correction applied after the calculation. It defines the question, selects the representation, and establishes which conclusions are justified. This is consistent with the broader literature on automation. \citet{bainbridge_ironies_1983} showed how automating routine operations can leave people responsible for the most demanding judgments and exceptional situations. In Climate Services, reducing the effort required to execute an analysis does not remove the expertise required to determine whether that analysis is appropriate.
+
+\section{AI as an Interface to Scientific Evidence}
+
+The limitations of parametric recall do not preclude a useful role for LLMs. They instead help distinguish between generating an approximation from internal representations and accessing information whose origin can be checked. Ted Chiang's description of ChatGPT as a ``blurry JPEG of the Web'' offers an analogy for this distinction: an overall picture can remain recognizable while individual details become unreliable \citep{chiang_chatgpt_2023}. For quantitative climate applications, those details are often precisely what matters.
+
+Connecting language models to scientific sources changes their role. Datasets and analytical software provide the quantitative evidence, while the model interprets questions, configures analyses, and communicates results. The central evaluation question becomes how faithfully it performs these operations.
+
+Access alone is insufficient. In their experiments on long-context language models, \citet{liu_lost_2024} showed that the position of relevant information within the input could substantially affect its use. Providing the necessary evidence therefore does not guarantee that it will be selected and incorporated correctly. This distinction is directly relevant to augmented Climate Services: retrieval quality and answer quality are related, but separate, properties.
+
+The augmentation experiments presented here support this separation. Additional context improves specificity and practical orientation without consistently improving perceived credibility or uncertainty communication. Systems incorporating indicator computation show more consistent overall gains. Their contribution is not merely a larger information supply, but a more explicit connection between quantitative statements and the procedures producing them.
+
+This connection is captured by \emph{procedural grounding}. A claim can be traced to a dataset, an indicator definition, parameter choices, and a calculation. Nevertheless, a reproducible calculation can still address the wrong question. The quality of the interface therefore depends on both analytical execution and interpretation: selecting appropriate evidence, preserving its qualifications, and avoiding conclusions that extend beyond it.
+
+\section{Implications for Evaluation and Future Development}
+
+These findings favour evaluation based on the intended function of the system rather than a single measure of general capability. Reproducible execution, physical consistency, geographical reliability, and faithful communication answer different questions. They should be examined together without assuming that success in one establishes success in the others.
+
+The same distinction applies to automated evaluation. The stronger agreement between human and LLM judges after aggregation supports comparative assessment within the tested systems, but does not certify individual answers. Likewise, higher actionability scores do not demonstrate improved adaptation decisions. The next step is to examine these systems in collaborative workflows, where providers and users can assess whether the analysis addresses their needs and whether its limitations are understood.
+
+Finally, the results describe particular models and configurations, not permanent boundaries of AI. New training objectives and architectures can address existing weaknesses while changing the requirements for evaluation. The frameworks developed here seek to remain model-agnostic by separating scientific requirements from implementation details, but this independence is necessarily partial. Their diagnostics and criteria will also need revision as capabilities evolve.
+
+The lasting contribution is therefore not a verdict on a particular generation of models. It is an approach to asking what their performance means, which evidence supports their outputs, and whether that evidence is sufficient for the intended use. AI becomes useful to Climate Services when its computational capabilities remain accountable to a scientific question and a decision context.
